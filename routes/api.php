@@ -66,4 +66,3 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('/menus/{id}', [MenusController::class, 'update'])->middleware('permission:edit posts');
     Route::delete('/menus/{id}', [MenusController::class, 'destroy'])->middleware('permission:delate posts');
 });
-

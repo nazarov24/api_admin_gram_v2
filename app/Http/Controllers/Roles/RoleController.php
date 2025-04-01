@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Roles;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\AssignRoleToUserRequest;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Permission;
@@ -32,12 +33,8 @@ class RoleController extends Controller
         return response()->json(['message' => 'Роль удалена'], 200);
     }
 
-    public function assignRoleToUser(Request $request, $user_id)
+    public function assignRoleToUser(AssignRoleToUserRequest $request, $user_id)
     {
-        $request->validate([
-            'role_id' => 'required|exists:roles,id',
-        ]);
-
         $user = User::findOrFail($user_id);
 
         $role = Role::findOrFail($request->role_id);

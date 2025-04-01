@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Roles;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AssignRoleToSubsectionsRequest;
+use App\Http\Requests\AssignSectionsToRoleRequest;
 use App\Http\Requests\PermisionRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
@@ -39,27 +41,15 @@ class PermisionRoleController extends Controller
     }
 
 
-    public function assignSectionsToRole(Request $request, $role_id)
+    public function assignSectionsToRole(AssignSectionsToRoleRequest $request, $role_id)
     {
-        $request->validate([
-            'section_ids' => 'required|array',
-            'section_ids.*' => 'integer|exists:sections,id',
-        ]);
         return PermisionRoleServices::assignSectionsToRole($request, $role_id);
-         
     }
 
 
-    public function assignRoleToSubsections(Request $request, $role_id)
+    public function assignRoleToSubsections(AssignRoleToSubsectionsRequest $request, $role_id)
     {
-        $request->validate([
-            'subsection_ids' => 'required|array',
-            'subsection_ids.*' => 'integer|exists:subsections,id',
-        ]);
-    
         return PermisionRoleServices::assignRoleToSubsections($request, $role_id);
     }
-
-
 
 }
