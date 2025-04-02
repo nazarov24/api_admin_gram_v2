@@ -36,14 +36,7 @@ class PermisionRoleController extends Controller
 
     public function removePermissionById($user_id, $permission_id)
     {
-       $result = PermisionRoleServices::removePermissionFromUser($user_id, $permission_id);
-       return response()->json($result, 200);
-    }
-
-
-    public function assignSectionsToRole(AssignSectionsToRoleRequest $request, $role_id)
-    {
-        return PermisionRoleServices::assignSectionsToRole($request, $role_id);
+        return PermisionRoleServices::removePermissionFromUser($user_id, $permission_id);
     }
 
 

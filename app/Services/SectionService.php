@@ -14,16 +14,14 @@ class SectionService
 
     public static function index()
     {
-        $sections = Section::with('subsections')->get();
+        $sections = Section::with('subsections')->orderBy('title', 'desc')->get();
 
         $sections->transform(function ($section) {
 
-            // Получаем пользователей с доступом к секции через роли
             $users = User::whereHas('roles.sections', function ($query) use ($section) {
                 $query->where('sections.id', $section->id);
             })->get();
 
-            // Формируем данные о секции
             $section->users = $users->map(function ($user) {
                 return [
                     'user_id' => $user->id,
@@ -33,15 +31,11 @@ class SectionService
                 ];
             });
 
-            // Работаем с подсекциями
             $section->subsections->transform(function ($subsection) {
-
-                // Получаем пользователей с доступом к подсекции через роли
                 $subsectionUsers = User::whereHas('roles.subsections', function ($query) use ($subsection) {
                     $query->where('subsections.id', $subsection->id);
                 })->get();
 
-                // Формируем данные о подсекции
                 $subsection->users = $subsectionUsers->map(function ($user) {
                     return [
                         'user_id' => $user->id,

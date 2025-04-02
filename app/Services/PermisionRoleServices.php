@@ -90,32 +90,10 @@ class PermisionRoleServices
     
 
 
-    public static function assignSectionsToRole(Request $request, $role_id)
-    {
-        $role = Role::findOrFail($role_id);
-        $sections = Section::whereIn('id', $request->section_ids)->get();
-
-        if ($sections->isEmpty()) {
-            return response()->json(['message' => 'Разделы не найдены.'], 404);
-        }
-
-        foreach ($sections as $section) {
-            $section->roles()->attach($role->id);
-        }
-
-        return response()->json([
-            'message' => 'Роль успешно привязана к разделам.',
-            'role' => new RoleSectionResource($role),
-            'sections' => SectionResource::collection($sections),
-        ], 200);
-    }
-
-    
-
-
     public static function assignRoleToSubsections(Request $request, $role_id)
     {
-        $role = Role::findOrFail($role_id);
+        $role = Role::find($role_id);
+        if(!$role){return response()->json(['message' => 'Role not found.'], 404);}
         $subsections = Subsection::whereIn('id', $request->subsection_ids)->get();
     
         if ($subsections->isEmpty()) {
