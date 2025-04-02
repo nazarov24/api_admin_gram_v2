@@ -12,6 +12,7 @@ use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Roles\PermissionController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\Api\Orders\SearchAddressController;
+use App\Http\Controllers\FieldPermissionController;
 use App\Http\Controllers\Roles\PermisionRoleController;
 use App\Http\Controllers\SectionController;
 
@@ -29,6 +30,7 @@ Route::get('/roles', [RoleController::class, 'index']);
 Route::post('/roles', [RoleController::class, 'store']);
 Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
 Route::post('users/{user_id}/roles', [RoleController::class, 'assignRoleToUser']);
+
 
 Route::get('/permissions', [PermissionController::class, 'index']);
 Route::post('/permissions', [PermissionController::class, 'store']);
@@ -60,10 +62,19 @@ Route::post('/roles/{role_id}/subsections', [PermisionRoleController::class, 'as
 
 
 
-Route::middleware(['auth:api'])->group(function () {
+Route::middleware('auth:api')->group(function () {
     Route::post('/menus', [MenusController::class, 'store'])->middleware('permission:created posts');
     Route::get('/menus/index', [MenusController::class, 'index'])->middleware('permission:show posts');
     Route::put('/menus/{id}', [MenusController::class, 'update'])->middleware('permission:edit posts');
     Route::delete('/menus/{id}', [MenusController::class, 'destroy'])->middleware('permission:delate posts');
+
+   
+});
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/models/{model}', [FieldPermissionController::class, 'getModelFields']);
+    Route::get('/permissionss', [FieldPermissionController::class, 'getPermissions']);
+    Route::post('/permissionss', [FieldPermissionController::class, 'updatePermissions']);
 });
 
