@@ -101,66 +101,6 @@ class PermisionRoleSwagger
 
 
 
-    /**
-   * @OA\Post(
-   *     path="/api/sections/{role_id}/roles",
-   *     summary="Назначить роль на несколько разделов",
-   *     tags={"Section"},
-   *     security={{ "bearerAuth":{} }},
-   *     @OA\Parameter(
-   *         name="role_id",
-   *         in="path",
-   *         required=true,
-   *         description="ID роли",
-   *         @OA\Schema(type="integer")
-   *     ),
-   *     @OA\RequestBody(
-   *         required=true,
-   *         @OA\JsonContent(
-   *             required={"section_ids"},
-   *             @OA\Property(
-   *                 property="section_ids",
-   *                 type="array",
-   *                 @OA\Items(type="integer"),
-   *                 example={1, 2, 3}
-   *             )
-   *         )
-   *     ),
-   *     @OA\Response(
-   *         response=200,
-   *         description="Роль успешно назначена на разделы",
-   *         @OA\JsonContent(
-   *             @OA\Property(property="message", type="string", example="Роль успешно привязана к разделам."),
-   *             @OA\Property(
-   *                 property="role",
-   *                 type="object",
-   *                 @OA\Property(property="id", type="integer", example=2),
-   *                 @OA\Property(property="name", type="string", example="Manager")
-   *             ),
-   *             @OA\Property(
-   *                 property="sections",
-   *                 type="array",
-   *                 @OA\Items(
-   *                     type="object",
-   *                     @OA\Property(property="id", type="integer", example=1),
-   *                     @OA\Property(property="name", type="string", example="Orders")
-   *                 )
-   *             )
-   *         )
-   *     ),
-   *     @OA\Response(
-   *         response=404,
-   *         description="Роль или раздел(ы) не найдены",
-   *         @OA\JsonContent(
-   *             @OA\Property(property="message", type="string", example="Разделы не найдены.")
-   *         )
-   *     )
-   * )
-   */
-  public function assignSectionsToRole(){}
-
-
-
   /**
    * @OA\Post(
    *     path="/api/roles/{role_id}/subsections",

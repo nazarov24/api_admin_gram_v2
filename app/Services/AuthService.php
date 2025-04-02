@@ -36,13 +36,12 @@ class AuthService
         ]);
         
         $role = Role::findByName($validated['role'], 'api'); 
-
+        
         if ($role) {
             $user->assignRole($role);
         } else {
             return ['message' => 'Роль не найдена для guard "api"'];
         }
-        
 
         return [
             'message' => 'Пользователь успешно зарегистрирован',

@@ -1,18 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\Orders\JournalOrderController;
-use App\Http\Controllers\Api\Orders\OrderController;
-use App\Http\Controllers\Api\Orders\OrderTariffAllowanceController;
-use App\Http\Controllers\Api\Orders\OrderTypeController;
+
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\FieldPermissionController;
 use App\Http\Controllers\MenusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Roles\PermissionController;
-use App\Http\Controllers\API\PostController;
-use App\Http\Controllers\Api\Orders\SearchAddressController;
-use App\Http\Controllers\FieldPermissionController;
 use App\Http\Controllers\Roles\PermisionRoleController;
 use App\Http\Controllers\SectionController;
 
