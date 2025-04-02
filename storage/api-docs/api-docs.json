@@ -189,6 +189,103 @@
                 }
             }
         },
+        "/api/models/{model}": {
+            "get": {
+                "tags": [
+                    "Fields"
+                ],
+                "summary": "Получить все поля модели",
+                "operationId": "68de202a6bfde9a29e5524024c623633",
+                "parameters": [
+                    {
+                        "name": "model",
+                        "in": "path",
+                        "description": "Название модели (например, users)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список полей модели"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/permissionss": {
+            "get": {
+                "tags": [
+                    "Fields"
+                ],
+                "summary": "Получить текущие доступы к полям",
+                "operationId": "4ad97d25467e4bbfce0bf198d7be326a",
+                "responses": {
+                    "200": {
+                        "description": "Список доступов"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Fields"
+                ],
+                "summary": "Обновить доступ к полям",
+                "operationId": "17315b631508725a68282ec2b0a11ee9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role": {
+                                        "type": "string",
+                                        "example": "manager"
+                                    },
+                                    "model": {
+                                        "type": "string",
+                                        "example": "users"
+                                    },
+                                    "fields": {
+                                        "type": "object",
+                                        "example": {
+                                            "email": {
+                                                "is_visible": 0
+                                            },
+                                            "name": {
+                                                "is_visible": 1
+                                            }
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Доступы обновлены"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/menus": {
             "post": {
                 "tags": [
@@ -1462,6 +1559,10 @@
         {
             "name": "Register",
             "description": "Register"
+        },
+        {
+            "name": "Fields",
+            "description": "Fields"
         },
         {
             "name": "Menus",
