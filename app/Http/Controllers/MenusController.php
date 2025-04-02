@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateMenusRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\Menus;
 use Illuminate\Http\Request;
 use App\Swagger\Auth\AuthSwagger;
 
 class MenusController extends Controller
 {
-     public function store(Request $request)
+     public function store(StoreRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
-
-
+        $validated = $request->validated();
         $menus = Menus::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
@@ -38,17 +36,13 @@ class MenusController extends Controller
 
 
 
-    public function update(Request $request, $id)
+    public function update(UpdateMenusRequest $request, $id)
     {
 
         $menus = Menus::find($id);
         if(!$menus){return response()->json(['message' => 'Menus not found'], 404);}
 
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         $menus->update($validated);
 

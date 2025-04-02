@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Roles;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -25,9 +26,8 @@ class PermissionController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $request->validate(['name' => 'required|string|unique:permissions,name|max:255',]);
         $permission = Permission::findOrFail($id);
         $permission->update(['name' => $request->name]);
         return response()->json($permission);

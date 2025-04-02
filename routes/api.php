@@ -77,4 +77,3 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/permissionss', [FieldPermissionController::class, 'getPermissions']);
     Route::post('/permissionss', [FieldPermissionController::class, 'updatePermissions']);
 });
-
