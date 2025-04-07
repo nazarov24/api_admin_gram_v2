@@ -24,7 +24,6 @@ class CreateClientsTable extends Migration
             $table->tinyInteger('is_online')->default(0);
             $table->string('socket_id', 100)->nullable();
             $table->double('rating')->default(0.98);
-            $table->timestamp('deleted_at')->nullable();
             $table->string('device');
             $table->unsignedBigInteger('division_id')->nullable();
             $table->text('dop_info')->nullable();

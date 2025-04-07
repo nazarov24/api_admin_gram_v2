@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('first_name',255);
             $table->string('last_name',255);
-            $table->string('patronymic',255);
+            $table->string('patronymic',255)->nullable();
             $table->string('phone',255);
-            $table->string('second_phone',255);
-            $table->timestamps('birth_date');
+            $table->string('second_phone',255)->nullable();
+            $table->date('birth_date')->nullable();
             $table->tinyInteger('gender')->default(0);
             $table->string('email')->unique();
-            $table->timestamp('deleted_at')->nullable();
-            $table->string('password');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -71,120 +71,90 @@
                 }
             }
         },
-        "/api/auth/register": {
+        "/api/employees/users": {
             "post": {
                 "tags": [
-                    "Register"
+                    "Employee"
                 ],
-                "summary": "Регистрация нового пользователя с ролью",
-                "operationId": "df6d96c9f29d30bc928d33324451e533",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Имя пользователя",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "Operator User"
-                        }
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "Email пользователя",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "email",
-                            "example": "operator@example.com"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "Пароль пользователя",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "operator123"
-                        }
-                    },
-                    {
-                        "name": "password_confirmation",
-                        "in": "query",
-                        "description": "Подтверждение пароля",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "operator123"
-                        }
-                    },
-                    {
-                        "name": "role",
-                        "in": "query",
-                        "description": "Роль пользователя",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "operator"
+                "summary": "Создание нового пользователя",
+                "operationId": "83c19621c635e85de8a9d88dcd113707",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "division_id",
+                                    "first_name",
+                                    "last_name",
+                                    "phone",
+                                    "email",
+                                    "avatar",
+                                    "role"
+                                ],
+                                "properties": {
+                                    "division_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "patronymic": {
+                                        "type": "string",
+                                        "example": "Ivanovich"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "992901234567"
+                                    },
+                                    "second_phone": {
+                                        "type": "string",
+                                        "example": "992931234567"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "gender": {
+                                        "type": "integer",
+                                        "enum": [
+                                            0,
+                                            1
+                                        ],
+                                        "example": 0
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "201": {
-                        "description": "Пользователь успешно зарегистрирован",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "User registered successfully"
-                                        },
-                                        "user": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "name": {
-                                                    "type": "string",
-                                                    "example": "Operator User"
-                                                },
-                                                "email": {
-                                                    "type": "string",
-                                                    "format": "email",
-                                                    "example": "operator@example.com"
-                                                },
-                                                "role": {
-                                                    "type": "string",
-                                                    "example": "operator"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
+                        "description": "Пользователь создан"
                     },
                     "422": {
-                        "description": "Ошибка валидации",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The email field is required."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
+                        "description": "Ошибка валидации"
                     }
                 }
             }
@@ -1443,8 +1413,8 @@
             "description": "Login"
         },
         {
-            "name": "Register",
-            "description": "Register"
+            "name": "Employee",
+            "description": "Employee"
         },
         {
             "name": "Fields",

@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Api\Employee\AuthController as EmployeeAuthController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FieldPermissionController;
 use App\Http\Controllers\MenusController;
@@ -10,6 +10,7 @@ use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Roles\PermissionController;
 use App\Http\Controllers\Roles\PermisionRoleController;
 use App\Http\Controllers\SectionController;
+
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -72,3 +73,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/permissionss', [FieldPermissionController::class, 'getPermissions']);
     Route::post('/permissionss', [FieldPermissionController::class, 'updatePermissions']);
 });
+
+
+Route::middleware('auth:api')->group(function (){
+     
+});
+Route::post('employees/users', [EmployeeAuthController::class, 'register']); 
+
+
+
