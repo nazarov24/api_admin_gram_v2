@@ -2,13 +2,49 @@
 
 namespace App\Models;
 
+use App\Models\Balance\DriverBalance;
+use App\Traits\FiltersTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Laravel\Passport\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Activitylog\LogOptions;
 
-class Performer extends Model
+
+class Performer1 extends Authenticatable implements HasMedia
 {
+
     protected $connection = 'pgsql';
     protected $table = 'public.performers';
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Включаем предотвращение ленивой загрузки только для этой модели
+        static::preventLazyLoading(! app()->isProduction());
+    }
+    use HasFactory, LogsActivity,HasApiTokens,  InteractsWithMedia, SoftDeletes;
+
+    use LogsActivity;
+
+    // Реализуем метод getActivitylogOptions()
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['field1', 'field2']) 
+            ->useLogName('performer')
+            ->logOnlyDirty();
+    }
+   
     const COLLECTIONNAME = "photo_control";
     const CITY_ID = 2;
     const PHOTO_CONTROL_STATUS = [
@@ -39,7 +75,6 @@ class Performer extends Model
         'expirated_passport',
         'district_id',
         'passport_office_id',
-        'passport_serials',
         'address',
         'is_active',
         'status',
@@ -54,8 +89,20 @@ class Performer extends Model
         'socket_id',
         'rating_by_client',
         'is_on_shift',
-        'photo_control_status'
     ];
+    public function getTable()
+    {
+        return join('.', [
+            $this->getConnection()->getDatabaseName(),
+            Str::snake(Str::pluralStudly(class_basename($this))) 
+        ]);
+    }
+
+    public function getFioAttribute()
+    {
+        $full_name = $this->last_name.' '.$this->first_name;
+        return $full_name;
+    }   
 
     protected $hidden = [
         'password',
@@ -65,12 +112,6 @@ class Performer extends Model
         'promo_code',
         'parent_id',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }    
-
     public function performer_transports()
     {
         return $this->hasMany(PerformerTransport::class,'performer_id','id');
@@ -132,6 +173,22 @@ class Performer extends Model
         return $this->belongsToMany(Order::class, PerformerOrder::class);
     }
 
+
+    public function performerOrder() : HasOne
+    {
+        return $this->hasOne(PerformerOrder::class, 'performer_id','id')->with('orderActive')->latestOfMany();
+    }
+
+    public function geoLocation() : HasOne
+    {
+        return $this->hasOne(PerformerLocation::class, 'performer_id' , 'id')->latestOfMany();
+    }
+
+    public function scopeActive($query) {
+        return $query->where('is_active', self::ACTIVE)
+                    ->where('is_online', self::ACTIVE);
+    }
+
     public function car_state()
     {
         return $this->hasOne(CarState::class,'performer_id','id')->latest();
@@ -146,5 +203,4 @@ class Performer extends Model
     {
         return $this->hasOne(PerformerOrder::class, 'performer_id', 'id')->orderByDesc('id');
     }
-
 }

@@ -4,18 +4,8 @@ namespace App\Http\Controllers\Roles;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssignRoleToSubsectionsRequest;
-use App\Http\Requests\AssignSectionsToRoleRequest;
 use App\Http\Requests\PermisionRoleRequest;
-use App\Models\Permission;
-use App\Models\Role;
-use App\Models\Section;
-use App\Models\Subsection;
-use Illuminate\Http\Request;
-
-use App\Models\User;
 use App\Services\PermisionRoleServices;
-use Mockery\Matcher\Subset;
-use Spatie\Permission\PermissionRegistrar;
 use App\Swagger\Roles\PermisionRoleSwagger;
 
 class PermisionRoleController extends Controller
@@ -25,7 +15,6 @@ class PermisionRoleController extends Controller
         return PermisionRoleServices::getPermissions();
     }
 
-
     public function assignPermissions(PermisionRoleRequest $request, $user_id)
     {
         $validated = $request->validated();
@@ -33,12 +22,10 @@ class PermisionRoleController extends Controller
         return response()->json($result, 200);
     }
 
-
     public function removePermissionById($user_id, $permission_id)
     {
         return PermisionRoleServices::removePermissionFromUser($user_id, $permission_id);
     }
-
 
     public function assignRoleToSubsections(AssignRoleToSubsectionsRequest $request, $role_id)
     {

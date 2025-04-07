@@ -32,7 +32,7 @@ class StoreRequest extends FormRequest
             'second_phone' => 'nullable|regex:/^992[0-9]{3,14}$/|min:12|max:12',
             'birth_date' => 'nullable|date|before:',
             'gender' => 'nullable|in:0,1',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => ['required', 'email'],
             'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'role' => 'required|string|exists:roles,name' 
         ];

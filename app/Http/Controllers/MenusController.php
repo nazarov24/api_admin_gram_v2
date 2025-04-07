@@ -27,14 +27,10 @@ class MenusController extends Controller
     }
 
 
-
-
     public function index()
     {
         return response()->json(Menus::all(), 200);
     }
-
-
 
     public function update(UpdateMenusRequest $request, $id)
     {

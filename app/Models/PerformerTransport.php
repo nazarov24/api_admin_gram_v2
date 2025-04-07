@@ -15,7 +15,7 @@ class PerformerTransport extends BasicModel
     use SoftDeletes;
     
     protected $connection = 'pgsql';
-    public $table = 'performer_transports';
+    public $table = 'public.performer_transports';
     public const ACTIVE_CONNECTION = 1;
     public const WAITING_CONNECTION = 2;
     public const DELETED = 3;
