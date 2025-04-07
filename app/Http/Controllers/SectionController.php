@@ -3,14 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SectionRequest;
-use App\Models\ModelHasPermision;
-use App\Models\Permission;
-use App\Models\Role;
-use App\Models\Section;
-use App\Models\Subsection;
-use App\Models\User;
 use App\Services\SectionService;
-use Illuminate\Http\Request;
 use App\Swagger\SectionSwagger;
 
 class SectionController extends Controller

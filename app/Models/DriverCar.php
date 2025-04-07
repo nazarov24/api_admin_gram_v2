@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DriverCar extends Model
 {
     protected $connection = 'pgsql';
+    protected $table = 'public.driver_cars';
     
     use HasFactory;
 
