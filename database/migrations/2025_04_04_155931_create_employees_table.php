@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('login', 255)->nullable();
             $table->string('password', 255);
             $table->string('avatar',255)->nullable();
-            $table->unsignedBigInteger('division_id')->nullable();
-            $table->string('status');
-            $table->timestamp('deleted_at')->nullable();
+            $table->foreignId('division_id')->constrained('divisions')->onDelete('set null');
+            $table->string('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

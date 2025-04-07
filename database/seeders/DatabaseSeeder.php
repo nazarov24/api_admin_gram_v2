@@ -22,17 +22,17 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'user']);
+        // Role::create(['name' => 'admin', 'guard_name' => 'api']);
+        // Role::create(['name' => 'user', 'guard_name' => 'api']);
 
-        Permission::create(['name' => 'edit posts']);
-        Permission::create(['name' => 'delete posts']);
+        // Permission::create(['name' => 'edit posts', 'guard_name' => 'api']);
+        // Permission::create(['name' => 'delete posts', 'guard_name' => 'api']);
 
-        $admin = Role::findByName('admin');
-        $admin->givePermissionTo('edit posts');
-        $admin->givePermissionTo('delete posts');
+        // $admin = Role::findByName('admin');
+        // $admin->givePermissionTo('edit posts');
+        // $admin->givePermissionTo('delete posts');
 
-        $user = Role::findByName('user');
-        $user->givePermissionTo('edit posts');
+        // $user = Role::findByName('user');
+        // $user->givePermissionTo('edit posts');
     }
 }

@@ -20,13 +20,6 @@ class AuthController extends Controller
         return AuthService::login($credentials);
     }
 
-
-    public function register(RegisterRequest $request)
-    {
-        $result = AuthService::register($request);
-        return response()->json($result, 201);
-    }
-
 }
 
 

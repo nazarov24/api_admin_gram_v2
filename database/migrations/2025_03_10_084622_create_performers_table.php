@@ -33,7 +33,6 @@ class CreatePerformersTable extends Migration
             $table->boolean('is_online')->default(false);
             $table->string('socket_id', 255)->nullable();
             $table->decimal('rating_by_client', 8, 7)->default(5.0000000);
-            $table->timestamp('deleted_at')->nullable();
             $table->enum('photo_control_status', ['ACCEPTED', 'IN_PROCESS', 'NOT_ACCEPTED'])->default('NOT_ACCEPTED');
             $table->double('activity')->default(100);
             $table->timestamps();

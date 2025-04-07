@@ -21,7 +21,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'patronymic',
+        'phone',
+        'second_phone',
+        'birth_date',
+        'gender',
         'email',
         'password',
     ];
@@ -54,16 +60,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Section::class);
     }
 
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')
-    //                 ->where('model_type', User::class);
-    // }
-
-    // public function hasRole($roleName)
-    // {
-    //     return $this->roles()->where('name', $roleName)->exists();
-    // }
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
 
    
 }
