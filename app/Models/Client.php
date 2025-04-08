@@ -28,7 +28,7 @@ class Client extends Authenticatable
         'fcm_token',
         'login',
         'user_id',
-        'socket_id',
+             'socket_id',
         'is_online',
         'division_id',
         'id_num_passport',

@@ -71,6 +71,153 @@
                 }
             }
         },
+        "/api/client/register": {
+            "post": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Регистрация нового клиента",
+                "description": "Регистрирует нового клиента и возвращает логин и пароль",
+                "operationId": "registerClient",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "phone",
+                                    "email",
+                                    "birth_date",
+                                    "gender",
+                                    "device"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Иван"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Иванов"
+                                    },
+                                    "patronymic": {
+                                        "type": "string",
+                                        "example": "Иванович"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+992921234567"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "ivanov@example.com"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "gender": {
+                                        "type": "integer",
+                                        "enum": [
+                                            0,
+                                            1
+                                        ],
+                                        "example": 0
+                                    },
+                                    "fcm_token": {
+                                        "type": "string",
+                                        "example": "fcm_example_token"
+                                    },
+                                    "device": {
+                                        "type": "string",
+                                        "example": "android"
+                                    },
+                                    "division_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "status": {
+                                        "type": "integer",
+                                        "enum": [
+                                            0,
+                                            1
+                                        ],
+                                        "example": 1
+                                    },
+                                    "is_online": {
+                                        "type": "integer",
+                                        "enum": [
+                                            0,
+                                            1
+                                        ],
+                                        "example": 0
+                                    },
+                                    "dop_info": {
+                                        "type": "string",
+                                        "example": "Дополнительная информация"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Клиент успешно зарегистрирован!"
+                                        },
+                                        "login": {
+                                            "type": "string",
+                                            "example": "+998901234567"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "H8sK9p2T"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Системная ошибка",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Произошла системная ошибка!"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "SQLSTATE[23000]: Integrity constraint violation..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/drivers/register": {
             "post": {
                 "tags": [
@@ -1634,6 +1781,10 @@
         {
             "name": "Login",
             "description": "Login"
+        },
+        {
+            "name": "Client",
+            "description": "Client"
         },
         {
             "name": "Drivers",
