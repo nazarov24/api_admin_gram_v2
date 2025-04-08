@@ -28,10 +28,12 @@ class StoreRequest extends FormRequest
             'phone' => 'required|string|unique:users,phone',
             'email' => 'required|email|unique:users,email',
             'birth_date' => 'required|date',
-            'gender' => 'required|in:male,female',
+            'gender' => 'nullable|in:0,1',
             'fcm_token' => 'nullable|string',
             'device' => 'nullable|string|max:255',
             'division_id' => 'nullable|exists:divisions,id',
+            'status' => 'nullable|in:0,1',
+            'is_online'=>'nullable|in:0,1',
             'dop_info' => 'nullable|string',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];

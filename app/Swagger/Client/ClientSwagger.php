@@ -23,15 +23,17 @@ class ClientSwagger {
  *                 @OA\Property(property="first_name", type="string", example="Иван"),
  *                 @OA\Property(property="last_name", type="string", example="Иванов"),
  *                 @OA\Property(property="patronymic", type="string", example="Иванович"),
- *                 @OA\Property(property="phone", type="string", example="+998901234567"),
+ *                 @OA\Property(property="phone", type="string", example="+992921234567"),
  *                 @OA\Property(property="email", type="string", format="email", example="ivanov@example.com"),
  *                 @OA\Property(property="birth_date", type="string", format="date", example="1990-01-01"),
- *                 @OA\Property(property="gender", type="string", enum={"male", "female"}, example="male"),
+ *                 @OA\Property(property="gender", type="integer", enum={0,1}, example=0),
  *                 @OA\Property(property="fcm_token", type="string", example="fcm_example_token"),
  *                 @OA\Property(property="device", type="string", example="android"),
  *                 @OA\Property(property="division_id", type="integer", example=1),
+ *                 @OA\Property(property="status", type="integer", enum={0,1}, example=1),
+ *                 @OA\Property(property="is_online", type="integer", enum={0,1}, example=0),
  *                 @OA\Property(property="dop_info", type="string", example="Дополнительная информация"),
- *                 @OA\Property(property="avatar", type="string", format="binary")
+ *                 @OA\Property(property="avatar", type="string", format="binary"),
  *             )
  *         )
  *     ),

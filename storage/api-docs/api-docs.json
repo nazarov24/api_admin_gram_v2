@@ -108,7 +108,7 @@
                                     },
                                     "phone": {
                                         "type": "string",
-                                        "example": "+998901234567"
+                                        "example": "+992921234567"
                                     },
                                     "email": {
                                         "type": "string",
@@ -121,12 +121,12 @@
                                         "example": "1990-01-01"
                                     },
                                     "gender": {
-                                        "type": "string",
+                                        "type": "integer",
                                         "enum": [
-                                            "male",
-                                            "female"
+                                            0,
+                                            1
                                         ],
-                                        "example": "male"
+                                        "example": 0
                                     },
                                     "fcm_token": {
                                         "type": "string",
@@ -139,6 +139,22 @@
                                     "division_id": {
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "status": {
+                                        "type": "integer",
+                                        "enum": [
+                                            0,
+                                            1
+                                        ],
+                                        "example": 1
+                                    },
+                                    "is_online": {
+                                        "type": "integer",
+                                        "enum": [
+                                            0,
+                                            1
+                                        ],
+                                        "example": 0
                                     },
                                     "dop_info": {
                                         "type": "string",
@@ -830,164 +846,6 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/api/performers/register": {
-            "post": {
-                "tags": [
-                    "Performer"
-                ],
-                "summary": "Регистрация нового исполнителя",
-                "operationId": "808bac3e8c529f3cad3251ab5ee96d3b",
-                "parameters": [
-                    {
-                        "name": "first_name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "Алексей"
-                        }
-                    },
-                    {
-                        "name": "last_name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "Иванов"
-                        }
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "email",
-                            "example": "aleksey@example.com"
-                        }
-                    },
-                    {
-                        "name": "phone",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "992901234567"
-                        }
-                    },
-                    {
-                        "name": "division_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    },
-                    {
-                        "name": "city_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "example": 2
-                        }
-                    },
-                    {
-                        "name": "promo_code",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "example": "PROMO2025"
-                        }
-                    },
-                    {
-                        "name": "passport_serials",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "example": "AB1234567"
-                        }
-                    },
-                    {
-                        "name": "driver_license_serials",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "format": "date",
-                            "example": "2020-06-15"
-                        }
-                    },
-                    {
-                        "name": "expirated_driver_license",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "format": "date",
-                            "example": "2030-06-15"
-                        }
-                    },
-                    {
-                        "name": "expirated_passport",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "format": "date",
-                            "example": "2035-06-15"
-                        }
-                    },
-                    {
-                        "name": "address",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "example": "г. Москва, ул. Ленина, д.10"
-                        }
-                    },
-                    {
-                        "name": "fcm_token",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "example": "token123456789"
-                        }
-                    },
-                    {
-                        "name": "register_from",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "example": "mobile_app"
-                        }
-                    },
-                    {
-                        "name": "dop_info",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "example": "Дополнительная информация"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Исполнитель успешно зарегистрирован"
-                    },
-                    "422": {
-                        "description": "Ошибка валидации"
-                    }
-                }
             }
         },
         "/api/role/permissions": {
@@ -1943,10 +1801,6 @@
         {
             "name": "Menus",
             "description": "Menus"
-        },
-        {
-            "name": "Performer",
-            "description": "Performer"
         },
         {
             "name": "Assign permissions role",
