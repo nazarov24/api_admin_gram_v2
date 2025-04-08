@@ -66,7 +66,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/menus/{id}', [MenusController::class, 'update'])->middleware('permission:edit posts');
     Route::delete('/menus/{id}', [MenusController::class, 'destroy'])->middleware('permission:delate posts');
 
-   
+
 });
 
 
@@ -78,11 +78,12 @@ Route::middleware('auth:api')->group(function () {
 
 
 Route::middleware('auth:api')->group(function (){
-     
+
 });
 
-Route::post('employees/users', [EmployeeAuthController::class, 'register']); 
-Route::post('drivers/register', [DriverController::class, 'store']); 
+Route::post('employees/users', [EmployeeAuthController::class, 'register']);
+Route::post('drivers/register', [DriverController::class, 'store']);
+Route::post('/client/register',[ClientAuthController::class, 'register']);
 
 
 
