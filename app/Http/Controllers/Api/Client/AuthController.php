@@ -17,7 +17,7 @@ class AuthController extends Controller
     /**
      * Регистрация нового клиента
      */
-    public function register(\App\Http\Requests\ClientRequest\StoreRequest $request): array
+    public function register(\App\Http\Requests\ClientRequest\StoreRequest $request): JsonResponse
     {
         return AuthService::register($request);
     }
