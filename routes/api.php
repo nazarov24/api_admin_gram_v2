@@ -84,6 +84,6 @@ Route::middleware('auth:api')->group(function (){
 Route::post('employees/users', [EmployeeAuthController::class, 'register']);
 Route::post('drivers/register', [DriverController::class, 'store']);
 Route::post('/client/register',[ClientAuthController::class, 'register']);
-
+Route::post('/performers/register', [\App\Http\Controllers\Api\Performer\AuthController::class, 'register']);
 
 
