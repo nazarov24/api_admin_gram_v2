@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Client\AuthController as ClientAuthController;
 use App\Http\Controllers\Api\Driver\DriverController;
 use App\Http\Controllers\Api\Employee\AuthController as EmployeeAuthController;
+use App\Http\Controllers\Api\Orders\JournalOrderController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FieldPermissionController;
 use App\Http\Controllers\MenusController;
@@ -66,7 +67,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/menus/{id}', [MenusController::class, 'update'])->middleware('permission:edit posts');
     Route::delete('/menus/{id}', [MenusController::class, 'destroy'])->middleware('permission:delate posts');
 
-   
+
 });
 
 
@@ -78,11 +79,12 @@ Route::middleware('auth:api')->group(function () {
 
 
 Route::middleware('auth:api')->group(function (){
-     
+
 });
 
-Route::post('employees/users', [EmployeeAuthController::class, 'register']); 
-Route::post('drivers/register', [DriverController::class, 'store']); 
+Route::post('employees/users', [EmployeeAuthController::class, 'register']);
+Route::post('drivers/register', [DriverController::class, 'store']);
+Route::get('orders/journals',[JournalOrderController::class, 'journals']);
 
 
 
