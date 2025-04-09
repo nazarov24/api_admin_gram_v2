@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\Client\AuthController as ClientAuthController;
 use App\Http\Controllers\Api\Driver\DriverController;
 use App\Http\Controllers\Api\Employee\AuthController as EmployeeAuthController;
 use App\Http\Controllers\Auth\AuthController;
@@ -19,7 +18,8 @@ use App\Http\Controllers\SectionController;
 // })->middleware('auth:sanctum');
 
 Route::prefix('auth')->group(function (){
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('employees/users', [EmployeeAuthController::class, 'register']); 
+    Route::post('drivers/register', [DriverController::class, 'store']); 
     Route::post('/login', [AuthController::class, 'login']);
 });
 
@@ -37,7 +37,7 @@ Route::delete('/permissions/{id}/delete', [PermissionController::class, 'destroy
 
 
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:employees-api')->group(function () {
     Route::post('role/{id}/permissions', [PermisionRoleController::class, 'assignPermissions']);
     Route::get('role/permissions', [PermisionRoleController::class, 'getPermissions']);
     Route::delete('role/{user_id}/permissions/{permission_id}', [PermisionRoleController::class, 'removePermissionById']);
@@ -60,7 +60,7 @@ Route::post('/roles/{role_id}/subsections', [PermisionRoleController::class, 'as
 
 
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:employees-api')->group(function () {
     Route::post('/menus', [MenusController::class, 'store'])->middleware('permission:created posts');
     Route::get('/menus/index', [MenusController::class, 'index'])->middleware('permission:show posts');
     Route::put('/menus/{id}', [MenusController::class, 'update'])->middleware('permission:edit posts');
@@ -70,19 +70,14 @@ Route::middleware('auth:api')->group(function () {
 });
 
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:employees-api')->group(function () {
     Route::get('/models/{model}', [FieldPermissionController::class, 'getModelFields']);
     Route::get('/permissionss', [FieldPermissionController::class, 'getPermissions']);
     Route::post('/permissionss', [FieldPermissionController::class, 'updatePermissions']);
 });
 
 
-Route::middleware('auth:api')->group(function (){
-     
-});
 
-Route::post('employees/users', [EmployeeAuthController::class, 'register']); 
-Route::post('drivers/register', [DriverController::class, 'store']); 
 
 
 

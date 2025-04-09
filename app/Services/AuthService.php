@@ -7,15 +7,19 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Request;
 use Spatie\Permission\PermissionRegistrar;
 
 class AuthService
 {
-    public static function login(array $credentials): JsonResponse
+    public static function login(Request $request)
     {
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('YourAppName')->accessToken;
+        return 1;
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('employee')->attempt($credentials)) {
+            $suda = Auth::guard('employee')->user();
+            $token = $suda->createToken('YourAppName')->accessToken;
 
             return response()->json(['token' => $token]);
         }
