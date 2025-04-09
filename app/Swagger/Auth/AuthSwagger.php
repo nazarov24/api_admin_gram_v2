@@ -13,18 +13,18 @@ class AuthSwagger
      *     summary="Авторизация и получение токена",
      *     tags={"Login"},
      *     @OA\Parameter(
-     *         name="email",
+     *         name="login",
      *         in="query",
      *         required=true,
      *         description="Email пользователя",
-     *         @OA\Schema(type="string", example="operator@example.com")
+     *         @OA\Schema(type="string", example="992901234568")
      *     ),
      *     @OA\Parameter(
      *         name="password",
      *         in="query",
      *         required=true,
      *         description="Пароль пользователя",
-     *         @OA\Schema(type="string", example="operator123")
+     *         @OA\Schema(type="string", example="H7TbJp5r")
      *     ),
      *     @OA\Response(
      *         response=200,

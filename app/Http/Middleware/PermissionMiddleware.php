@@ -18,13 +18,14 @@ class PermissionMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $permission)
+    public function handle(Request $request, Closure $next, $permissions)
     {
-        if (!Auth::user()->can($permission)) {
-            Log::warning('Permission check failed for user: ' . Auth::user()->id);
+        $employee = Auth::guard('employees-api')->user();
+        $employee->user->load('permissions'); 
+        if (!$employee->user->can($permissions)) {
             return response()->json(['message' => 'У вас нет доступа.'], 403);
         }
-        
+    
         return $next($request);
 
     }

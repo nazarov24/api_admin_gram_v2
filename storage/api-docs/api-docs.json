@@ -15,13 +15,13 @@
                 "operationId": "7dcc56769c1e2272de35a167fd9e8cc4",
                 "parameters": [
                     {
-                        "name": "email",
+                        "name": "login",
                         "in": "query",
                         "description": "Email пользователя",
                         "required": true,
                         "schema": {
                             "type": "string",
-                            "example": "operator@example.com"
+                            "example": "992901234568"
                         }
                     },
                     {
@@ -31,7 +31,7 @@
                         "required": true,
                         "schema": {
                             "type": "string",
-                            "example": "operator123"
+                            "example": "H7TbJp5r"
                         }
                     }
                 ],
@@ -71,13 +71,13 @@
                 }
             }
         },
-        "/api/drivers/register": {
+        "/api/auth/drivers/register": {
             "post": {
                 "tags": [
                     "Drivers"
                 ],
                 "summary": "Create driver",
-                "operationId": "14409fa6dfdb8da4730d3f46d8cd2332",
+                "operationId": "7ca9e041d30a0d7f7257ab30390e697f",
                 "parameters": [
                     {
                         "name": "division_id",
@@ -251,13 +251,13 @@
                 ]
             }
         },
-        "/api/employees/users": {
+        "/api/auth/employees/users": {
             "post": {
                 "tags": [
                     "Employee"
                 ],
                 "summary": "Создание нового пользователя",
-                "operationId": "83c19621c635e85de8a9d88dcd113707",
+                "operationId": "ec85ff9350e145ec2b254db57692b70f",
                 "parameters": [
                     {
                         "name": "division_id",

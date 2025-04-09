@@ -45,11 +45,10 @@ class PermisionRoleServices
         }
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
-        $permissionNames = Permission::whereIn('id', $permissions)->pluck('name');
-
+        
+        $permissionNames = Permission::query()->whereIn('id', $permissions)->where('guard_name', 'employees-api')->get();
+        
         $user->syncPermissions($permissionNames);
-
         return [
             'message' => 'Разрешения успешно назначены пользователю.',
             'user_id' => $user->id,

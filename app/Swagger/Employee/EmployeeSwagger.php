@@ -9,7 +9,7 @@ class EmployeeSwagger {
 
   /**
    * @OA\Post(
-   *     path="/api/employees/users",
+   *     path="/api/auth/employees/users",
    *     summary="Создание нового пользователя",
    *     tags={"Employee"},
    *     @OA\Parameter(name="division_id", in="query", required=true, @OA\Schema(type="integer", example=1)),

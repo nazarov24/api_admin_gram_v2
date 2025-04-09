@@ -16,7 +16,7 @@ class DriverSwagger {
 
     /**
      * @OA\Post(
-     ** path="/api/drivers/register",
+     ** path="/api/auth/drivers/register",
      *   tags={"Drivers"},
      *   summary="Create driver",
      *   security={{"bearerAuth":{}}},
