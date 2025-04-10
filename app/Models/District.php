@@ -12,7 +12,7 @@ class District extends Model
     public const ACTIVE = 1;
     
     protected $connection = 'pgsql';
-    protected $table = 'districts';
+    protected $table = 'public.districts';
     protected $fillable = [
         'name',
         'zone_id',
@@ -24,11 +24,7 @@ class District extends Model
         'lat',
         'is_active'
     ];
-    public function __construct(array $attributes = [])
-    {
-        $this->table = DB::connection('mysql_location')->getDatabaseName().'.'.$this->table;
-        parent::__construct($attributes);
-    }
+   
     public function zone(){
         return $this->belongsTo(Zone::class,'zone_id','id')->with('village');
     }
