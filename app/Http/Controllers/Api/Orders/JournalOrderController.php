@@ -147,6 +147,12 @@ class JournalOrderController extends Controller
      *     required=false,
      *     @OA\Schema(type="string")
      *   ),
+     *     @OA\Parameter(
+     *     name="filter_auto_assignment_condition",
+     *     in="query",
+     *     required=false,
+     *     @OA\Schema(type="string")
+     *   ),
      *  @OA\Parameter(
      *     name="filter_not_issued",
      *     in="query",
@@ -281,7 +287,7 @@ class JournalOrderController extends Controller
      *     in="query",
      *     required=false,
      *     @OA\Schema(
-     *          type="integer"
+     *          type="string"
      *     )
      *   ),
      *   @OA\Parameter(
@@ -367,7 +373,7 @@ class JournalOrderController extends Controller
             'division:id',
             'type:id,name',
             'tariff:id',
-            'users:id,login',
+            'users:id',
             'tariffPrices'
         ]);
 
@@ -566,27 +572,27 @@ class JournalOrderController extends Controller
 
 //
 //        // Filter created by user login
-//        if($request->has('filter_created_by') || ($request->filter_created_by_condition == "nullable" || $request->filter_created_by_condition == "notNullable")){
-//            $relation = "users";
-//            $column = "login";
-//            $value = $request->filter_created_by;
-//            $condition = null;
-//            if ($request->has('filter_created_by_condition')){
-//                $condition = $request->filter_created_by_condition;
-//            }
-//            $orders = $orders->FilterRelationStringHas($relation,$column, $condition, $value);
-//        }
+        if($request->has('filter_created_by') || ($request->filter_created_by_condition == "nullable" || $request->filter_created_by_condition == "notNullable")){
+            $relation = "users";
+            $column = "login";
+            $value = $request->filter_created_by;
+            $condition = null;
+            if ($request->has('filter_created_by_condition')){
+                $condition = $request->filter_created_by_condition;
+            }
+            $orders = $orders->FilterRelationStringHas($relation,$column, $condition, $value);
+        }
 //
 //        // Filter assignment by user login
-//        if($request->has('filter_assignment_by') || ($request->filter_assignment_by_condition == "nullable" || $request->filter_assignment_by_condition == "notNullable")){
-//            $column = "assign_by_login";
-//            $value = $request->filter_assignment_by;
-//            $condition = null;
-//            if ($request->has('filter_assignment_by_condition')){
-//                $condition = $request->filter_assignment_by_condition;
-//            }
-//            $orders = $orders->FilterString($column, $condition, $value);
-//        }
+        if($request->has('filter_auto_assignment') || ($request->filter_auto_assignment_condition == "nullable" || $request->filter_auto_assignment_condition == "notNullable")){
+            $column = "assign_by_login";
+            $value = $request->filter_auto_assignment;
+            $condition = null;
+            if ($request->has('filter_auto_assignment_condition')){
+                $condition = $request->filter_auto_assignment_condition;
+            }
+            $orders = $orders->FilterString($column, $condition, $value);
+        }
 //
 //        // filter full name performer
 //        if ($request->has('filter_full_name') || ($request->filter_full_name_condition == "nullable" || $request->filter_full_name_condition == "notNullable")) {
@@ -638,24 +644,25 @@ class JournalOrderController extends Controller
 //        }
 //
 //        // filter info for drivers
-//        if($request->has('filter_info_for_drivers') || ($request->filter_info_for_drivers_condition == "nullable" || $request->filter_info_for_drivers_condition == "notNullable")){
-//            $column = "comment";
-//            $value = $request->filter_info_for_drivers;
-//            $condition = null;
-//            if ($request->has('filter_info_for_drivers_condition')){
-//                $condition = $request->filter_info_for_drivers_condition;
-//            }
-//            $orders = $orders->FilterString($column, $condition, $value);
-//        }
+        if($request->has('filter_info_for_drivers') || ($request->filter_info_for_drivers_condition == "nullable" || $request->filter_info_for_drivers_condition == "notNullable")){
+            $column = "comment";
+            $value = $request->filter_info_for_drivers;
+            $condition = null;
+            if ($request->has('filter_info_for_drivers_condition')){
+                $condition = $request->filter_info_for_drivers_condition;
+            }
+            $orders = $orders->FilterString($column, $condition, $value);
+        }
 //
 //        // Filter client status
-//        if($request->has('filter_client_status')) {
-//            $status = 0;
-//            if($request->filter_client_status === "ANSWERED") {
-//                $status = 1;
-//            }
-//            $orders = $orders->where('client_status','=', $status);
-//        }
+        if($request->has('filter_client_status')) {
+            $status = 0;
+            if($request->filter_client_status === "ANSWERED") {
+                $status = 1;
+            }
+            return response()->json($orders->where('client_status','=', $status))->get();
+        }
+            $orders = $orders->where('client_status','=', $status);
 //
 //        // Filter distance
         if($request->has('filter_distance') || ($request->filter_distance_condition == "nullable" || $request->filter_distance_condition == "notNullable")){

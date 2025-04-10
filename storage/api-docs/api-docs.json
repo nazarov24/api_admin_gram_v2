@@ -127,6 +127,14 @@
                         }
                     },
                     {
+                        "name": "filter_auto_assignment_condition",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "filter_not_issued",
                         "in": "query",
                         "required": false,
@@ -285,7 +293,7 @@
                         "in": "query",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
