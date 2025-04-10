@@ -19,12 +19,8 @@ class DriverProfile extends Model
     public const FOR_REVISION = 7;
 
     protected $connection = 'pgsql';
-    protected $table = "driver_profiles";
-    public function __construct(array $attributes = [])
-    {
-        $this->table = DB::connection('mysql_performer')->getDatabaseName().'.'.$this->table;
-        parent::__construct($attributes);
-    }
+    protected $table = "public.driver_profiles";
+   
     protected $fillable = [
         'id',
         'division_id',
@@ -84,7 +80,7 @@ class DriverProfile extends Model
     public function driver_license_type() {
         return $this->belongsTo(DriverLicenseType::class, 'driver_license_type_id','id');
     }
-    public function created_user() {
+    public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function reminder_user() {
