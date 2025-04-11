@@ -35,129 +35,123 @@ class JournalOrderResource extends JsonResource
         // }
 
         return [
-            "id" => $this->id,
-            "division_id" => $this->division_id,
-            "division" => $this?->division?->name,
-            'phone' => $this?->client?->phone,
+
+
+            'id' => $this->id,
+            'client_id' => $this->client_id,
+            'division_id' => $this->division_id,
             'dop_phone' => $this->dop_phone,
+            'distance' => $this->distance,
             'auto_assignment' => $this->auto_assignment,
             'not_issued' => $this->not_issued,
             'for_time' => $this->for_time,
-            'date_time' => $date_time ?? null,
-            'distance' => $this->distance ?? null,
-            'distance_in_city' => $this->distance_in_city ?? null,
-            'search_address_id' => $this->search_address_id ?? null,
-            'from_address' => $this->parseAddress($this->address),
-            'to_addresses' => array_filter(OrderToAddressResuorce::collection($this->to_addresses)->toArray($this->to_addresses),function($value) {
-                return !is_null($value);
-            }),
-            'meeting_info' => $this->meeting_info ?? null,
-            'info_for_operator' => $this->supervisor_comment ?? null,
-            'info_for_drivers' => $this->comment ?? null,
-            'order_type_id' => $this->order_type_id ?? null,
-            'type' => $this->type->name ?? null,
-            'tariff_id' => $this->tariff_id ?? null,
-            'tariff' => isset($this->tariff->name) ? $this->tariff->name : null,
-
-            'number_of_passengers' => $this->number_of_passengers ?? null,
-            'status_id' => $this->status_id ?? null,
-            'status' => $this->status->name ?? null,
+            'date_time' => $this->date_time,
+            'number_of_passengers' => $this->number_of_passengers,
+            'search_address_id' => $this->search_address_id,
+            'meeting_info' => $this->meeting_info,
+            'comment' => $this->comment,
+            'supervisor_comment' => $this->supervisor_comment,
+            'order_type_id' => $this->order_type_id,
+            'tariff_id' => $this->tariff_id,
+            'status_id' => $this->status_id,
+            'create_user_id' => $this->create_user_id,
+            'price' => $this->price,
+            'info_price' => $this->info_price,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'completed_at' => $this->completed_at,
+            'end_time' => $this->end_time,
+            'price_tariff_id' => $this->price_tariff_id,
+            'realtime_key' => $this->realtime_key,
+            'reason_cancel_order' => $this->reason_cancel_order,
             'client_status' => $this->client_status,
-            'active_bonus' => $this->active_bonus,
+            'end_free_wait_time' => $this->end_free_wait_time,
+            'order_commission_id' => $this->order_commission_id,
+            'distance_in_city' => $this->distance_in_city,
+            'price_in_city' => $this->price_in_city,
+            'price_inter_city' => $this->price_inter_city,
+            'geo_json_array' => $this->geo_json_array,
+            'free_km' => $this->free_km,
             'bonus_price' => $this->bonus_price,
-            'price_cash' => $this->price - $this->bonus_price,
-            'price' => $this->price ?? null ,
-            'price_by_performer' => $this->tariff->prices->price_by_performers + $this->price,
-            'price_by_performers' => $this->tariff->prices->price_by_performers ?? null,
-            'price_in_city' => $this->price_in_city ?? null,
-            'price_inter_city' => $this->price_inter_city ?? null,
-            'free_km' => $this->free_km ?? null,
-            'geo_json_array' => $this->geo_json_array ?? null,
-            'commission_price' => (string)$this->price_commission == '0' ? (OrderCommission::first('percent')?->percent ?? config('order.commission')) * $this->price : $this->price_commission,
-            //'info_price' => $this->info_price,
-            'reason_cancel_order' => $this?->reasonCancel?->reason_cancel_order,
-            'allowances' => OrderAllowancesResource::collection($this->order_allowances),
-            'performer' => new OrderPerformerResource($this->performer),
-            'create_user' => $this->when($this->users, function() {
-                return new UserOrderResource($this->users);
-            }, function() {
-                return [
-                    "id" => 0,
-                    "login" => "stu_ClientCabinet"
-                ];
-            }),
-            'filing_time' => isset($this->performer->filing_time) ? Carbon::parse($this->performer->filing_time)->format('Y-m-d H:i:s') : null,
-            'start_time' => !is_null($this?->performer_order?->start_filing_time)?Carbon::parse($this->performer_order->start_filing_time)->toDateTimeString():null,
-            'created_at' => isset($this->created_at) ? Carbon::parse($this->created_at)->format('Y-m-d H:i:s') : null,
-            'updated_at' => isset($this->updated_at) ? Carbon::parse($this->updated_at)->format('Y-m-d H:i:s') : null,
-            'end_time' => isset($this->end_time) ? Carbon::parse($this->end_time)->format('Y-m-d H:i:s') : null,
-            'past_minute' => 0,
-            'payment_type_id' => $this->pay_type_id,
-            'payment_type' => isset($this->payment_type($this->payType)['text'])?$this->payment_type($this->payType)['text']:null,
-            'assignmentBy' => $this->assign_by_login
+            'active_bonus' => $this->active_bonus,
+            'price_commission' => $this->price_commission,
+            'processing_at' => $this->processing_at,
+            'allowance_percents_price' => $this->allowance_percents_price,
+            'allowance_price' => $this->allowance_price,
+            'start_free_wait_time' => $this->start_free_wait_time,
+            'assign_by_login' => $this->assign_by_login,
+            'pay_type_id' => $this->pay_type_id,
+            'price_percent' => $this->price_percent,
+            'address' => json_encode($this->address),
+            'tariff_prices' => $this->tariff_prices,
+//            'client' => new ClientResource($this->client),  // Assuming a relationship exists
+//            'division' => new DivisionResource($this->division),  // Assuming a relationship exists
+//            'type' => new TypeResource($this->type),  // Assuming a relationship exists
+//            'tariff' => new TariffResource($this->tariff),  // Assuming a relationship exists
+//            'users' => new UserResource($this->users),  // Assuming a relationship exists
         ];
     }
 
-    private function payment_type($relation)
-    {
-        if($relation) {
-            return ClientPayTypeResource::make($relation)->toArray($relation);
-        }
-        return [
-            'id' => 0,
-            'type' => 'Cash',
-            'card_id' => "",
-            'card_number' => "",
-            'text' => "Наличными",
-            'icon' => "",
-            'sort' => 0,
-            'status' => 1
-        ];
-    }
-
-    private function parseAddress($address)
-    {
-        $address = json_decode($address,true);
-        $result = null;
-        if(isset($address['lng']) && isset($address['lat'])) {
-            if(!isset($address['body']) || $address['body'] == "")  {
-                $address['body'] = "";
-            }
-            if(!isset($address['address']) || $address['address'] == "")  {
-                $address['address'] = "";
-            }
-            $title = '';
-            if(isset($address['title']) && $address['title'] != "")  {
-                $title = $address['title'];
-            }
-
-            if(isset($address['name'])) {
-                $title = $address['name'];
-                if(isset($address['type']) && $address['type'] == 'address') {
-                    $title = $address['street_type'].' '.$address['street'].', '.$address['name'];
-                }
-            }
-
-            $address['title'] = $title;
-            $result = [
-                'id' => $address['id'],
-                'address' => $address['address'],
-                'title' => $address['title'],
-                'body' => $address['body'],
-                'lng' => (float)$address['lng'],
-                'lat' => (float)$address['lat']
-            ];
-            $title_point = [];
-            $pointSlug = \Str::slug($result['title'],'_');
-            $is_point = str_starts_with($pointSlug,'metka');
-            if($result['id'] == 0 && $is_point) {
-                $title_point[0] = 'Метка на карте';
-                if(!empty($result['address'])) {
-                    array_push($title_point,$result['address']);
-                }
-                $result['title'] = implode(', ',$title_point);
-            }
-        }
-        return $result;
-    }
+//    private function payment_type($relation)
+//    {
+//        if($relation) {
+//            return ClientPayTypeResource::make($relation)->toArray($relation);
+//        }
+//        return [
+//            'id' => 0,
+//            'type' => 'Cash',
+//            'card_id' => "",
+//            'card_number' => "",
+//            'text' => "Наличными",
+//            'icon' => "",
+//            'sort' => 0,
+//            'status' => 1
+//        ];
+//    }
+//
+//    private function parseAddress($address)
+//    {
+//        $address = json_decode($address,true);
+//        $result = null;
+//        if(isset($address['lng']) && isset($address['lat'])) {
+//            if(!isset($address['body']) || $address['body'] == "")  {
+//                $address['body'] = "";
+//            }
+//            if(!isset($address['address']) || $address['address'] == "")  {
+//                $address['address'] = "";
+//            }
+//            $title = '';
+//            if(isset($address['title']) && $address['title'] != "")  {
+//                $title = $address['title'];
+//            }
+//
+//            if(isset($address['name'])) {
+//                $title = $address['name'];
+//                if(isset($address['type']) && $address['type'] == 'address') {
+//                    $title = $address['street_type'].' '.$address['street'].', '.$address['name'];
+//                }
+//            }
+//
+//            $address['title'] = $title;
+//            $result = [
+//                'id' => $address['id'],
+//                'address' => $address['address'],
+//                'title' => $address['title'],
+//                'body' => $address['body'],
+//                'lng' => (float)$address['lng'],
+//                'lat' => (float)$address['lat']
+//            ];
+//            $title_point = [];
+//            $pointSlug = \Str::slug($result['title'],'_');
+//            $is_point = str_starts_with($pointSlug,'metka');
+//            if($result['id'] == 0 && $is_point) {
+//                $title_point[0] = 'Метка на карте';
+//                if(!empty($result['address'])) {
+//                    array_push($title_point,$result['address']);
+//                }
+//                $result['title'] = implode(', ',$title_point);
+//            }
+//        }
+//        return $result;
+//    }
 }
