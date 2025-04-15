@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 class Order extends BasicModel
 {
     use HasFactory;
+    use FiltersTrait;
 
     protected $connection = 'pgsql';
     const AUTO = 1;
@@ -26,7 +27,7 @@ class Order extends BasicModel
     const CANCELLATION = 10;
     const COMPLETE = 9;
     const DRIVER_ASSINGMENT = 2;
-    const RECEVIED = 1;  
+    const RECEVIED = 1;
     const ORDER_END_TIME_ADD = 15;
     const ASSIGNMENT = 2;
     const DRIVER_ON_SITE = 4;
@@ -96,7 +97,7 @@ class Order extends BasicModel
     }
 
 
-   
+
 
     public function order_allowances()
     {
