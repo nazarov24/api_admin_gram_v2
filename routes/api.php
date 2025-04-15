@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Driver\DriverController;
 use App\Http\Controllers\Api\DriverProfile\DriverProfileController;
 use App\Http\Controllers\Api\Employee\AuthController as EmployeeAuthController;
+use App\Http\Controllers\Api\Orders\JournalOrderController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\FieldPermissionController;
 use App\Http\Controllers\MenusController;
@@ -13,8 +14,8 @@ use App\Http\Controllers\Roles\PermisionRoleController;
 use App\Http\Controllers\SectionController;
 
 Route::prefix('auth')->group(function (){
-    Route::post('employees/users', [EmployeeAuthController::class, 'register']); 
-    Route::post('drivers/register', [DriverController::class, 'store']); 
+    Route::post('employees/users', [EmployeeAuthController::class, 'register']);
+    Route::post('drivers/register', [DriverController::class, 'store']);
     Route::post('/login', [AuthController::class, 'login']);
 });
 
@@ -62,6 +63,7 @@ Route::prefix('driver-profiles')->middleware('auth:employees-api')->group(functi
     Route::get('/{driver_profile_id}/edit', [DriverProfileController::class, 'edit']);
     Route::patch('/{driver_profile_id}', [DriverProfileController::class, 'update']);
 });
+Route::get('orders/journals',[JournalOrderController::class, 'journals']);
 
 
 
